@@ -41,7 +41,7 @@ IMAGE_PATTERN_STRING=<div\\s+class=\"queryly_advanced_item_imagecontainer\"\\s+s
 ```
 
 #### 5. Start the Spring Boot application with your favorite IDE
-In my case, I use IntelliJ with Java 11.
+In my case, I use IntelliJ with Java 11 (corretto-11 Amazon Corretto version 11.0.17) with Language Level 11.
 
 ### Deploying with Docker
 
