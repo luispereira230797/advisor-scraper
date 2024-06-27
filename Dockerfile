@@ -35,5 +35,5 @@ ENV CHROMEDRIVER_PATH="/usr/local/bin/chromedriver"
 ENV CUSTOM_GOOGLE_CHROME_BIN="/usr/bin/google-chrome"
 ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
 
-# docker build -t image/zp:1 .
-# docker run -p 8080:8080 image/zp:1
+# docker build -t image/scraper:1 .
+# docker run -p 8080:8080 image/scraper:1
