@@ -1,4 +1,3 @@
-```markdown
 # Simple Advisors Scraper
 A simple scraper to extract advisors from one page.
 
