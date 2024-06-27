@@ -1,13 +1,13 @@
-package com.advisorscraper;
+package com.newsscraper.news;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication()
-public class AdvisorScraperApplication {
+@SpringBootApplication
+public class SpringBootCleanarchApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AdvisorScraperApplication.class, args);
+		SpringApplication.run(SpringBootCleanarchApplication.class, args);
 	}
 
 }

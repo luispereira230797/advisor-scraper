@@ -8,10 +8,10 @@
 		<version>2.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.advisorscraper</groupId>
-	<artifactId>advisorscaper</artifactId>
+	<groupId>com.newsscraper</groupId>
+	<artifactId>newsscraper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>advisorscraper</name>
+	<name>newsscraper</name>
 	<description></description>
 	<url/>
 	<licenses>
@@ -84,7 +84,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>advisor-scraper</finalName>
+		<finalName>news-scraper</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -95,7 +95,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>2.4.4</version>
 				<configuration>
-					<mainClass>com.advisorscraper.AdvisorScraperApplication</mainClass> <!-- Specify your main class here -->
+					<mainClass>com.newsscraper.NewsScraperApplication</mainClass> <!-- Specify your main class here -->
 				</configuration>
 				<executions>
 					<execution>

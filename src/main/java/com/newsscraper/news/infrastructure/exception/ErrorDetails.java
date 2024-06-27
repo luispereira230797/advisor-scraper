@@ -1,4 +1,4 @@
-package com.advisorscraper.advisors.infrastructure.exception;
+package com.newsscraper.news.infrastructure.exception;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

@@ -33,7 +33,7 @@ RUN add-apt-repository 'deb https://apt.corretto.aws stable main'
 RUN apt-get update; apt-get install -y java-11-amazon-corretto-jdk
 RUN java -version
 
-COPY --from=build /home/app/target/advisor-scraper.jar /usr/local/lib/app.jar
+COPY --from=build /home/app/target/news-scraper.jar /usr/local/lib/app.jar
 EXPOSE 8080
 ENV CHROMEDRIVER_PATH="/usr/local/bin/chromedriver-linux64/chromedriver"
 ENV CUSTOM_GOOGLE_CHROME_BIN="/usr/bin/google-chrome"

@@ -1,4 +1,4 @@
-package com.advisorscraper.advisors.infrastructure.exception;
+package com.newsscraper.news.infrastructure.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	@ExceptionHandler(AdvisorValidationException.class)
-	public ResponseEntity<ErrorDetails> handleUserValidationException(AdvisorValidationException exception) {
+	@ExceptionHandler(NewsValidationException.class)
+	public ResponseEntity<ErrorDetails> handleUserValidationException(NewsValidationException exception) {
 		var errorDetails = new ErrorDetails();
 		errorDetails.setCode(exception.getCode());
 		errorDetails.setError(exception.getMessage());

@@ -1,7 +1,7 @@
-package com.advisorscraper.advisors.application.service;
+package com.newsscraper.news.application.service;
 
-import com.advisorscraper.advisors.domain.dto.response.AdvisorDto;
-import com.advisorscraper.advisors.infrastructure.exception.AdvisorValidationException;
+import com.newsscraper.news.domain.dto.response.NewsDto;
+import com.newsscraper.news.infrastructure.exception.NewsValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -14,9 +14,9 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
-public class AdvisorService {
-	@Value("${ADVISOR_PATTERN}")
-	private String ADVISOR_PATTERN;
+public class NewsService {
+	@Value("${NEW_CONTAINER_PATTERN}")
+	private String NEW_CONTAINER_PATTERN;
 	@Value("${URL_PATTERN_STRING}")
 	private String URL_PATTERN_STRING;
 	@Value("${DATE_PATTERN_STRING}")
@@ -27,60 +27,60 @@ public class AdvisorService {
 	private String RESUME_PATTERN_STRING;
 	@Value("${IMAGE_PATTERN_STRING}")
 	private String IMAGE_PATTERN_STRING;
-	@Value("${advisor.source.base.url}")
-	private String advisorSourceBaseUrl;
-	@Value("${advisor.source.search.url}")
-	private String advisorSourceSearchUrl;
+	@Value("${news.source.base.url}")
+	private String newSourceBaseUrl;
+	@Value("${news.source.search.url}")
+	private String newSourceSearchUrl;
 
 	private final WebScraperService webScraperService;
 
-	private final AdvisorObjectValidation advisorObjectValidation;
+	private final NewsObjectValidation newsObjectValidation;
 
-	// Search advisors by one variable
-    public List<AdvisorDto> search(String searchString) throws Exception {
+	// Search news by one variable
+    public List<NewsDto> search(String searchString) throws Exception {
 		// Validate param
-		var validationMessage = advisorObjectValidation.validateAdvisorSearch(searchString);
+		var validationMessage = newsObjectValidation.validateNewsSearch(searchString);
 		if (validationMessage != null)
-			throw new AdvisorValidationException(404, "g267", validationMessage);
+			throw new NewsValidationException(404, "g267", validationMessage);
 
 		// Get url web content
-		var url = advisorSourceSearchUrl.replace("_search_", searchString);
+		var url = newSourceSearchUrl.replace("_search_", searchString);
 		var webContent = webScraperService.getWebContent(url);
 
 		// Transform web content to formated data
 		var responseDto = transformWebContent(webContent);
 
 		// Validate response length
-		validationMessage = advisorObjectValidation.validateAdvisorResponse(responseDto, searchString);
+		validationMessage = newsObjectValidation.validateNewsResponse(responseDto, searchString);
 		if (validationMessage != null)
-			throw new AdvisorValidationException(400, "g268", validationMessage);
+			throw new NewsValidationException(400, "g268", validationMessage);
 
 		return responseDto;
 	}
 
 	// Transform Web Content HTML to required format
-	private List<AdvisorDto> transformWebContent(String webContent) {
-		var advisors = new ArrayList<AdvisorDto>();
+	private List<NewsDto> transformWebContent(String webContent) {
+		var news = new ArrayList<NewsDto>();
 		var divContents = new ArrayList<String>();
 
-		var regex = Pattern.compile(ADVISOR_PATTERN, Pattern.DOTALL);
+		var regex = Pattern.compile(NEW_CONTAINER_PATTERN, Pattern.DOTALL);
 		var matcher = regex.matcher(webContent);
 		while (matcher.find()) {
 			// Append the matched content
 			divContents.add(matcher.group());
 		}
 
-		// Transform divs contents to AdvisorDto format
+		// Transform divs contents to NewDto format
 		for(var divContent: divContents) {
-			var advisor = new AdvisorDto();
-			advisor.setDate(transformDate(extractData(divContent, DATE_PATTERN_STRING)));
-			advisor.setUrl(advisorSourceBaseUrl + extractData(divContent, URL_PATTERN_STRING));
-			advisor.setTitle(extractData(divContent, TITLE_PATTERN_STRING));
-			advisor.setResume(extractData(divContent, RESUME_PATTERN_STRING));
-			advisor.setImageUrl(advisorSourceBaseUrl + extractData(divContent, IMAGE_PATTERN_STRING));
-			advisors.add(advisor);
+			var newsDto = new NewsDto();
+			newsDto.setDate(transformDate(extractData(divContent, DATE_PATTERN_STRING)));
+			newsDto.setUrl(newSourceBaseUrl + extractData(divContent, URL_PATTERN_STRING));
+			newsDto.setTitle(extractData(divContent, TITLE_PATTERN_STRING));
+			newsDto.setResume(extractData(divContent, RESUME_PATTERN_STRING));
+			newsDto.setImageUrl(newSourceBaseUrl + extractData(divContent, IMAGE_PATTERN_STRING));
+			news.add(newsDto);
 		}
-		return advisors;
+		return news;
 	}
 
 	// Extract htmlContent data with a pattern (regex)
